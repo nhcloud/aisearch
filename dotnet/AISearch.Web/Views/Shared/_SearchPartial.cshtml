@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Search Form -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">search</i>
+                    Semantic Search
+                </h5>
+
+                <div class="mb-3">
+                    <label for="searchQuery" class="form-label">Search Query</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchQuery" placeholder="Enter your search query...">
+                        <button class="btn btn-primary" type="button" id="searchBtn">
+                            <i class="material-icons me-1" style="font-size: 18px;">search</i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" class="d-none">
+            <div class="card material-card">
+                <div class="card-body">
+                    <h5 class="card-title">Search Results</h5>
+                    <div id="searchResultsContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="searchLoading" class="text-center d-none">
+            <div class="spinner-border spinner-border-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Searching...</p>
+        </div>
+
+        <!-- Error Alert -->
+        <div id="searchError" class="alert alert-danger d-none" role="alert">
+            <i class="material-icons me-2" style="vertical-align: middle;">error</i>
+            <span id="searchErrorMessage"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Search Configuration -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">settings</i>
+                    Search Configuration
+                </h5>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="useKnowledgeAgent">
+                        <label class="form-check-label" for="useKnowledgeAgent">
+                            Use Knowledge Agent
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="includeImages" checked>
+                        <label class="form-check-label" for="includeImages">
+                            Include Images
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="includeText" checked>
+                        <label class="form-check-label" for="includeText">
+                            Include Text
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="topResults" class="form-label">Number of Results: <span id="topResultsValue">10</span></label>
+                    <input type="range" class="form-range" min="1" max="50" step="1" id="topResults" value="10">
+                </div>
+
+                <div class="mb-3">
+                    <label for="threshold" class="form-label">Similarity Threshold: <span id="thresholdValue">0.7</span></label>
+                    <input type="range" class="form-range" min="0" max="1" step="0.1" id="threshold" value="0.7">
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing Steps -->
+        <div id="processingSteps" class="card material-card d-none">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">timeline</i>
+                    Processing Steps
+                </h5>
+                <div id="processingStepsContent"></div>
+            </div>
+        </div>
+    </div>
+</div>

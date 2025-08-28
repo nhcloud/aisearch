@@ -1,0 +1,191 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Create Index Section -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">add</i>
+                    Create New Index
+                </h5>
+
+                <form id="createIndexForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="indexName" class="form-label">Index Name</label>
+                                <input type="text" class="form-control" id="indexName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="indexDescription" class="form-label">Description</label>
+                                <input type="text" class="form-control" id="indexDescription">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="material-icons me-2" style="vertical-align: middle; font-size: 18px;">add</i>
+                        Create Index
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Indexes List -->
+        <div class="card material-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="material-icons me-2" style="vertical-align: middle;">storage</i>
+                    Search Indexes
+                </h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="refreshIndexes()">
+                    <i class="material-icons" style="font-size: 16px;">refresh</i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="indexesLoading" class="text-center">
+                    <div class="spinner-border spinner-border-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading indexes...</p>
+                </div>
+
+                <div id="indexesContent" class="d-none">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Documents</th>
+                                <th>Created</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="indexesTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="indexesEmpty" class="text-center text-muted py-4 d-none">
+                    <i class="material-icons" style="font-size: 48px;">storage</i>
+                    <p class="mt-2">No indexes created yet</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div id="indexesError" class="alert alert-danger d-none" role="alert">
+            <i class="material-icons me-2" style="vertical-align: middle;">error</i>
+            <span id="indexesErrorMessage"></span>
+        </div>
+
+        <!-- Success Alert -->
+        <div id="indexesSuccess" class="alert alert-success d-none" role="alert">
+            <i class="material-icons me-2" style="vertical-align: middle;">check_circle</i>
+            <span id="indexesSuccessMessage"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Index Statistics -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">analytics</i>
+                    Statistics
+                </h5>
+
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h3 class="mb-0" id="totalIndexes">-</h3>
+                            <small class="text-muted">Total Indexes</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="mb-0" id="totalIndexedDocuments">-</h3>
+                        <small class="text-muted">Indexed Documents</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Index Configuration -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">settings</i>
+                    Index Configuration
+                </h5>
+
+                <div class="accordion" id="configAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#vectorConfig">
+                                Vector Settings
+                            </button>
+                        </h2>
+                        <div id="vectorConfig" class="accordion-collapse collapse" data-bs-parent="#configAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-2">
+                                    <label for="vectorDimensions" class="form-label small">Dimensions</label>
+                                    <input type="number" class="form-control form-control-sm" id="vectorDimensions" value="3072" readonly>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="similarityAlgorithm" class="form-label small">Similarity</label>
+                                    <select class="form-select form-select-sm" id="similarityAlgorithm">
+                                        <option value="cosine">Cosine</option>
+                                        <option value="dotProduct">Dot Product</option>
+                                        <option value="euclidean">Euclidean</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#textConfig">
+                                Text Analysis
+                            </button>
+                        </h2>
+                        <div id="textConfig" class="accordion-collapse collapse" data-bs-parent="#configAccordion">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="enableOcr" checked>
+                                    <label class="form-check-label small" for="enableOcr">OCR Processing</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="enableChunking" checked>
+                                    <label class="form-check-label small" for="enableChunking">Text Chunking</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">help</i>
+                    Help
+                </h5>
+                <p class="card-text small">
+                    Search indexes organize and structure your documents for efficient retrieval.
+                </p>
+                <ul class="small">
+                    <li><strong>Vector Search:</strong> Semantic similarity matching</li>
+                    <li><strong>Text Search:</strong> Keyword and phrase matching</li>
+                    <li><strong>Hybrid:</strong> Combines both approaches</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

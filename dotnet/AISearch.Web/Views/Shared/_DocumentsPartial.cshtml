@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Upload Section -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">cloud_upload</i>
+                    Upload Documents
+                </h5>
+
+                <div class="mb-3">
+                    <label for="documentFile" class="form-label">Select Files</label>
+                    <input class="form-control" type="file" id="documentFile" multiple accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg">
+                    <div class="form-text">Supported formats: PDF, DOC, DOCX, TXT, PNG, JPG, JPEG</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="documentTitle" class="form-label">Title (optional)</label>
+                    <input type="text" class="form-control" id="documentTitle" placeholder="Enter a custom title for the document">
+                    <div class="form-text">If not provided, the filename will be used. For multiple files, this title will apply to all files.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="documentDescription" class="form-label">Description (optional)</label>
+                    <textarea class="form-control" id="documentDescription" rows="2" placeholder="Enter a description for the document"></textarea>
+                    <div class="form-text">For multiple files, this description will apply to all files.</div>
+                </div>
+
+                <button class="btn btn-primary" onclick="uploadDocument()">
+                    <i class="material-icons me-2" style="vertical-align: middle; font-size: 18px;">upload</i>
+                    Upload Documents
+                </button>
+            </div>
+        </div>
+
+        <!-- Documents List -->
+        <div class="card material-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="material-icons me-2" style="vertical-align: middle;">description</i>
+                    Documents
+                </h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="refreshDocuments()">
+                    <i class="material-icons" style="font-size: 16px;">refresh</i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="documentsLoading" class="text-center">
+                    <div class="spinner-border spinner-border-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading documents...</p>
+                </div>
+
+                <div id="documentsContent" class="d-none">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Title / Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Uploaded</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="documentsTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="documentsEmpty" class="text-center text-muted py-4 d-none">
+                    <i class="material-icons" style="font-size: 48px;">description</i>
+                    <p class="mt-2">No documents uploaded yet</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Progress -->
+        <div id="uploadProgress" class="card material-card d-none">
+            <div class="card-body">
+                <h6 class="card-title">Upload Progress</h6>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" id="uploadProgressBar"></div>
+                </div>
+                <small class="text-muted mt-2" id="uploadProgressText">Preparing upload...</small>
+            </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div id="documentsError" class="alert alert-danger d-none" role="alert">
+            <i class="material-icons me-2" style="vertical-align: middle;">error</i>
+            <span id="documentsErrorMessage"></span>
+        </div>
+
+        <!-- Success Alert -->
+        <div id="documentsSuccess" class="alert alert-success d-none" role="alert">
+            <i class="material-icons me-2" style="vertical-align: middle;">check_circle</i>
+            <span id="documentsSuccessMessage"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Document Statistics -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">analytics</i>
+                    Statistics
+                </h5>
+
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h3 class="mb-0" id="totalDocuments">-</h3>
+                            <small class="text-muted">Total Documents</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="mb-0" id="totalSize">-</h3>
+                        <small class="text-muted">Total Size</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Document Types -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">pie_chart</i>
+                    Document Types
+                </h5>
+                <div id="documentTypes">
+                    <!-- Document type breakdown will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Help -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">help</i>
+                    Help
+                </h5>
+                <p class="card-text small">
+                    Upload documents to make them searchable. Supported formats include:
+                </p>
+                <ul class="small">
+                    <li><strong>Text:</strong> PDF, DOC, DOCX, TXT</li>
+                    <li><strong>Images:</strong> PNG, JPG, JPEG</li>
+                </ul>
+                <p class="card-text small">
+                    Documents are automatically processed and indexed for semantic search.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

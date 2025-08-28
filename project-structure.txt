@@ -1,0 +1,25 @@
+AISearch/
+├── README.md
+├── src/
+│   ├── backend/
+│   │   ├── AISearch.Api/
+│   │   │   ├── Program.cs
+│   │   │   ├── AISearch.Api.csproj
+│   │   │   ├── Controllers/
+│   │   │   ├── Models/
+│   │   │   ├── Services/
+│   │   │   └── Configuration/
+│   │   └── AISearch.Core/
+│   │       ├── AISearch.Core.csproj
+│   │       ├── Models/
+│   │       ├── Services/
+│   │       └── Interfaces/
+│   ├── frontend/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── services/
+│   │   │   └── App.js
+│   │   └── public/
+│   └── shared/
+└── docs/

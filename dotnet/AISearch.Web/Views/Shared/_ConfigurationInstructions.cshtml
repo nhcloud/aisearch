@@ -1,0 +1,135 @@
+@* Configuration Instructions Partial View for Administrators *@
+
+<div class="accordion" id="configurationAccordion">
+    <!-- Azure AD Configuration -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="azureAdHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#azureAdCollapse">
+                <i class="material-icons me-2">security</i>
+                Azure AD Configuration
+            </button>
+        </h2>
+        <div id="azureAdCollapse" class="accordion-collapse collapse" data-bs-parent="#configurationAccordion">
+            <div class="accordion-body">
+                <h6>Required Configuration in appsettings.json:</h6>
+                <pre class="bg-light p-3 rounded"><code>{
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "Domain": "your-domain.onmicrosoft.com",
+    "TenantId": "your-tenant-id",
+    "ClientId": "your-client-id",
+    "CallbackPath": "/signin-oidc"
+  }
+}</code></pre>
+                <div class="mt-3">
+                    <h6>Steps to Configure:</h6>
+                    <ol class="small">
+                        <li>Register application in Azure AD</li>
+                        <li>Configure redirect URIs</li>
+                        <li>Set appropriate API permissions</li>
+                        <li>Update appsettings.json with correct values</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Configuration -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="apiHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#apiCollapse">
+                <i class="material-icons me-2">api</i>
+                Backend API Configuration
+            </button>
+        </h2>
+        <div id="apiCollapse" class="accordion-collapse collapse" data-bs-parent="#configurationAccordion">
+            <div class="accordion-body">
+                <h6>API Settings in appsettings.json:</h6>
+                <pre class="bg-light p-3 rounded"><code>{
+  "ApiSettings": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}</code></pre>
+                <div class="mt-3">
+                    <h6>Requirements:</h6>
+                    <ul class="small">
+                        <li>Backend API service must be running</li>
+                        <li>Proper CORS configuration</li>
+                        <li>Azure services configured in API</li>
+                        <li>Database connections established</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Azure Services -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="servicesHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#servicesCollapse">
+                <i class="material-icons me-2">cloud</i>
+                Azure Services Setup
+            </button>
+        </h2>
+        <div id="servicesCollapse" class="accordion-collapse collapse" data-bs-parent="#configurationAccordion">
+            <div class="accordion-body">
+                <h6>Required Azure Services:</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="small">
+                            <li><strong>Azure AI Search</strong> - Document indexing and search</li>
+                            <li><strong>Azure OpenAI</strong> - AI chat and embeddings</li>
+                            <li><strong>Azure Blob Storage</strong> - Document storage</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="small">
+                            <li><strong>Azure AD</strong> - Authentication and authorization</li>
+                            <li><strong>Application Insights</strong> - Monitoring (optional)</li>
+                            <li><strong>Key Vault</strong> - Secret management (recommended)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="troubleshootHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleshootCollapse">
+                <i class="material-icons me-2">build</i>
+                Troubleshooting
+            </button>
+        </h2>
+        <div id="troubleshootCollapse" class="accordion-collapse collapse" data-bs-parent="#configurationAccordion">
+            <div class="accordion-body">
+                <h6>Common Issues:</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="small">
+                            <strong>Authentication Issues:</strong>
+                        </h6>
+                        <ul class="small text-muted">
+                            <li>Check Azure AD app registration</li>
+                            <li>Verify redirect URIs</li>
+                            <li>Confirm tenant and client IDs</li>
+                            <li>Check user permissions</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="small">
+                            <strong>API Connection Issues:</strong>
+                        </h6>
+                        <ul class="small text-muted">
+                            <li>Verify API is running</li>
+                            <li>Check API base URL</li>
+                            <li>Confirm CORS settings</li>
+                            <li>Test API endpoints directly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

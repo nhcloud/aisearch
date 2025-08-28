@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "AI Chat";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>
+                    <i class="material-icons me-2" style="vertical-align: middle;">chat</i>
+                    AI Chat
+                </h2>
+                <div class="d-flex align-items-center">
+                    <span class="text-muted me-2">Welcome,</span>
+                    <strong>@ViewData["UserName"]</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the Chat Partial -->
+    @await Html.PartialAsync("_ChatPartial")
+    
+    <!-- Include Antiforgery Token -->
+    @Html.AntiForgeryToken()
+</div>
+
+@section Scripts {
+    <script src="~/js/app.js" asp-append-version="true"></script>
+    <script>
+        // Initialize chat functionality when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Chat page loaded');
+            
+            // Test authentication status
+            fetch('/Chat/test-auth')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('?? Auth Status:', data);
+                    if (!data.isAuthenticated || !data.hasToken) {
+                        console.warn('?? Authentication issue detected:', data);
+                        // Optionally show a warning to the user
+                        if (!data.isAuthenticated) {
+                            showAlert('chatError', 'Authentication issue detected. You may need to sign in again.');
+                        } else if (!data.hasToken) {
+                            showAlert('chatError', 'Access token not available. You may need to refresh the page.');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('? Failed to check auth status:', error);
+                });
+
+            // Test debug configuration
+            fetch('/Chat/debug-config')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('?? Debug Config:', data);
+                })
+                .catch(error => {
+                    console.error('? Failed to check debug config:', error);
+                });
+            
+            // Add any chat-specific initialization here
+            if (typeof initializeApp === 'function') {
+                initializeApp();
+            } else {
+                console.log('initializeApp function not found in app.js');
+            }
+        });
+    </script>
+}

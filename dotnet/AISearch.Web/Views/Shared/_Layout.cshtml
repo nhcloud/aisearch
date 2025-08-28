@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - AI Search Multimodal Solution</title>
+
+    <!-- Material Design CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@@mui/material@@5.15.0/dist/index.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+
+    <style>
+        :root {
+            --primary-color: #2196f3;
+            --secondary-color: #ff9800;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 500;
+            color: white !important;
+        }
+        
+        .nav-tabs {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 24px;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: #666;
+            font-weight: 500;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            border-color: transparent;
+            color: var(--primary-color);
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-color: transparent;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .material-card {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #1976d2;
+            border-color: #1976d2;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+        }
+        
+        .spinner-border-primary {
+            color: var(--primary-color);
+        }
+        
+        .alert-info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--primary-color);
+            color: #1565c0;
+        }
+        
+        .badge-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .badge-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Custom navbar authentication styling */
+        .navbar-auth {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-left: 8px;
+        }
+        
+        .navbar-text {
+            color: white !important;
+            margin-bottom: 0;
+        }
+        
+        /* Make nav-link color specific to navbar only, not tabs */
+        .navbar .nav-link {
+            color: white !important;
+        }
+        
+        .navbar .nav-link:hover {
+            color: #e3f2fd !important;
+        }
+        
+        /* Thinking message animation */
+        .thinking-dots {
+            display: inline-block;
+        }
+        
+        .thinking-dots::after {
+            content: '';
+            animation: thinking-dots 1.5s infinite;
+        }
+        
+        @@keyframes thinking-dots {
+            0%, 20% {
+                content: '';
+            }
+            40% {
+                content: '.';
+            }
+            60% {
+                content: '..';
+            }
+            80%, 100% {
+                content: '...';
+            }
+        }
+        
+        /* Subtle pulsing animation for thinking message */
+        .thinking-message {
+            animation: thinking-pulse 2s infinite;
+        }
+        
+        @@keyframes thinking-pulse {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                AI Search - Multimodal Solution
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <!-- Navigation items will be handled by tabs in the main content -->
+                </ul>
+                <ul class="navbar-nav">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="material-icons me-1" style="font-size: 16px;">account_circle</i>
+                                @User.Identity.Name
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="/Account/AuthStatus">
+                                        <i class="material-icons me-2" style="font-size: 16px;">info</i>
+                                        Auth Status
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/Account/TokenTest">
+                                        <i class="material-icons me-2" style="font-size: 16px;">security</i>
+                                        Bearer Token Test
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/Account/api-testing-guide">
+                                        <i class="material-icons me-2" style="font-size: 16px;">api</i>
+                                        API Testing Guide
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/Account/SignOut">
+                                        <i class="material-icons me-2" style="font-size: 16px;">logout</i>
+                                        Sign out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Account/SignIn">Sign in</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid mt-3">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2025 - AI Search Multimodal Solution - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>

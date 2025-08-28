@@ -1,0 +1,236 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Chat Interface -->
+        <div class="card material-card" style="height: 600px; display: flex; flex-direction: column;">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="material-icons me-2" style="vertical-align: middle;">chat</i>
+                        Chat with Documents
+                    </h5>
+                    <!-- Global Speech Controls -->
+                    <div class="speech-control-bar d-none" id="globalSpeechControls">
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted me-2" id="speechControlText">
+                                <i class="material-icons me-1" style="font-size: 14px;">volume_up</i>
+                                Speaking...
+                            </span>
+                            <button class="btn btn-sm btn-outline-warning me-1" onclick="pauseTextToSpeech()" title="Pause speech">
+                                <i class="material-icons" style="font-size: 14px;">pause</i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="stopTextToSpeech()" title="Stop speech">
+                                <i class="material-icons" style="font-size: 14px;">stop</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="card-body flex-grow-1" style="overflow-y: auto; max-height: 450px;" id="chatMessages">
+                <div class="text-center text-muted py-4">
+                    <i class="material-icons" style="font-size: 48px;">chat_bubble_outline</i>
+                    <p class="mt-2">Start a conversation about your documents</p>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="card-footer">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="chatInput" placeholder="Type your message or use the microphone..." onkeypress="handleChatKeyPress(event)">
+                    <button class="btn btn-outline-secondary" type="button" id="micBtn" title="Click and hold to record">
+                        <i class="material-icons" style="font-size: 18px;" id="micIcon">mic</i>
+                    </button>
+                    <button class="btn btn-primary" type="button" id="sendBtn">
+                        <i class="material-icons" style="font-size: 18px;">send</i>
+                    </button>
+                </div>
+                <!-- Speech Recording Status -->
+                <div id="speechStatus" class="mt-2 d-none">
+                    <div class="d-flex align-items-center text-info">
+                        <div class="spinner-border spinner-border-sm me-2" role="status">
+                            <span class="visually-hidden">Recording...</span>
+                        </div>
+                        <span id="speechStatusText">Listening...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Sources -->
+        <div id="chatSources" class="card material-card d-none">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">source</i>
+                    Sources
+                </h5>
+                <div id="chatSourcesContent"></div>
+            </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div id="chatError" class="alert alert-danger d-none" role="alert">
+            <i class="material-icons me-2" style="vertical-align: middle;">error</i>
+            <span id="chatErrorMessage"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Chat Configuration -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">settings</i>
+                    Chat Configuration
+                </h5>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="chatUseKnowledgeAgent">
+                        <label class="form-check-label" for="chatUseKnowledgeAgent">
+                            Use Knowledge Agent
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="chatRequireSecurityTrimming">
+                        <label class="form-check-label" for="chatRequireSecurityTrimming">
+                            <i class="material-icons me-1" style="font-size: 16px; vertical-align: middle;">security</i>
+                            Require Security Trimming
+                        </label>
+                        <div class="form-text">
+                            <small class="text-muted">
+                                <i class="material-icons me-1" style="font-size: 12px; vertical-align: middle;">info</i>
+                                Filter search results based on your Azure AD group memberships to ensure you only see content you have access to
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="chatEnableTextToSpeech">
+                        <label class="form-check-label" for="chatEnableTextToSpeech">
+                            <i class="material-icons me-1" style="font-size: 16px; vertical-align: middle;">volume_up</i>
+                            Enable Text-to-Speech
+                        </label>
+                        <div class="form-text">
+                            <small class="text-muted">
+                                <i class="material-icons me-1" style="font-size: 12px; vertical-align: middle;">info</i>
+                                Automatically read aloud chat responses
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="chatIncludeImages" checked>
+                        <label class="form-check-label" for="chatIncludeImages">
+                            Include Images
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="chatIncludeText" checked>
+                        <label class="form-check-label" for="chatIncludeText">
+                            Include Text
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="chatTopResults" class="form-label">Context Sources: <span id="chatTopResultsValue">5</span></label>
+                    <input type="range" class="form-range" min="1" max="20" step="1" id="chatTopResults" value="5">
+                </div>
+
+                <div class="mb-3">
+                    <label for="chatThreshold" class="form-label">Relevance Threshold: <span id="chatThresholdValue">0.7</span></label>
+                    <input type="range" class="form-range" min="0" max="1" step="0.1" id="chatThreshold" value="0.7">
+                </div>
+
+                <div class="d-grid">
+                    <button class="btn btn-outline-secondary" onclick="clearChat()">
+                        <i class="material-icons me-2" style="vertical-align: middle; font-size: 18px;">clear</i>
+                        Clear Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speech Controls -->
+        <div class="card material-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">record_voice_over</i>
+                    Speech Features
+                </h5>
+
+                <div class="mb-3">
+                    <label for="speechLanguage" class="form-label">Speech Language</label>
+                    <select class="form-select" id="speechLanguage">
+                        <option value="en-US">English (US)</option>
+                        <option value="en-GB">English (UK)</option>
+                        <option value="es-ES">Spanish</option>
+                        <option value="fr-FR">French</option>
+                        <option value="de-DE">German</option>
+                        <option value="it-IT">Italian</option>
+                        <option value="pt-BR">Portuguese (Brazil)</option>
+                        <option value="ja-JP">Japanese</option>
+                        <option value="ko-KR">Korean</option>
+                        <option value="zh-CN">Chinese (Simplified)</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="speechRate" class="form-label">Speech Rate: <span id="speechRateValue">1.0</span></label>
+                    <input type="range" class="form-range" min="0.5" max="2.0" step="0.1" id="speechRate" value="1.0">
+                </div>
+
+                <div class="mb-3">
+                    <label for="speechPitch" class="form-label">Speech Pitch: <span id="speechPitchValue">1.0</span></label>
+                    <input type="range" class="form-range" min="0.5" max="2.0" step="0.1" id="speechPitch" value="1.0">
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-info btn-sm" onclick="testTextToSpeech()">
+                            <i class="material-icons me-1" style="font-size: 16px;">play_arrow</i>
+                            Test Text-to-Speech
+                        </button>
+                        <button class="btn btn-outline-warning btn-sm" onclick="stopTextToSpeech()">
+                            <i class="material-icons me-1" style="font-size: 16px;">stop</i>
+                            Stop All Speech
+                        </button>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <small>
+                        <i class="material-icons me-1" style="font-size: 12px;">info</i>
+                        <strong>Speech-to-Text:</strong> Click and hold the microphone button to record your voice.
+                        <br>
+                        <strong>Text-to-Speech:</strong> Enable the checkbox to automatically read responses aloud.
+                        <br>
+                        <strong>Speech Controls:</strong> Click the speaker icon on messages to play/stop individual responses.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing Steps -->
+        <div id="chatProcessingSteps" class="card material-card d-none">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="material-icons me-2" style="vertical-align: middle;">timeline</i>
+                    Processing Steps
+                </h5>
+                <div id="chatProcessingStepsContent"></div>
+            </div>
+        </div>
+    </div>
+</div>

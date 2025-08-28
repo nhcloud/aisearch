@@ -1,0 +1,213 @@
+@{
+    ViewData["Title"] = "AI Search Setup - Configuration Required";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Welcome Header -->
+            <div class="card material-card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex align-items-center">
+                        <i class="material-icons me-3" style="font-size: 36px;">search</i>
+                        <div>
+                            <h2 class="mb-0">Welcome to AI Search Multimodal Solution</h2>
+                            <p class="mb-0 opacity-75">Intelligent document search and chat powered by Azure AI</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead mb-4">This application requires authentication to access its features. Please sign in to continue.</p>
+                    <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary btn-lg">
+                        <i class="material-icons me-2" style="vertical-align: middle;">login</i>
+                        Sign In to Get Started
+                    </a>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <!-- Features Overview -->
+                <div class="col-lg-8">
+                    <div class="card material-card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">
+                                <i class="material-icons me-2" style="vertical-align: middle;">star</i>
+                                Key Features
+                            </h4>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex">
+                                        <i class="material-icons text-primary me-3" style="font-size: 24px;">search</i>
+                                        <div>
+                                            <h6 class="mb-1">Intelligent Search</h6>
+                                            <small class="text-muted">Semantic and vector search across your documents</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex">
+                                        <i class="material-icons text-primary me-3" style="font-size: 24px;">chat</i>
+                                        <div>
+                                            <h6 class="mb-1">AI Chat</h6>
+                                            <small class="text-muted">Conversational AI with document grounding</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex">
+                                        <i class="material-icons text-primary me-3" style="font-size: 24px;">description</i>
+                                        <div>
+                                            <h6 class="mb-1">Document Management</h6>
+                                            <small class="text-muted">Upload and manage various document types</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex">
+                                        <i class="material-icons text-primary me-3" style="font-size: 24px;">storage</i>
+                                        <div>
+                                            <h6 class="mb-1">Index Management</h6>
+                                            <small class="text-muted">Create and manage search indexes</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuration Help -->
+                <div class="col-lg-4">
+                    <div class="card material-card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="material-icons me-2" style="vertical-align: middle;">help</i>
+                                Need Help?
+                            </h5>
+                            <p class="card-text small">
+                                If you're having trouble signing in, please check:
+                            </p>
+                            <ul class="small">
+                                <li>Azure AD configuration is complete</li>
+                                <li>Application is registered in Azure AD</li>
+                                <li>Correct tenant and client ID in config</li>
+                                <li>User has appropriate permissions</li>
+                            </ul>
+                            <hr class="my-3">
+                            <p class="small text-muted mb-0">
+                                <i class="material-icons me-1" style="font-size: 16px; vertical-align: middle;">info</i>
+                                Contact your administrator for assistance
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration Instructions -->
+            <div class="card material-card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="material-icons me-2" style="vertical-align: middle;">settings</i>
+                        Configuration Overview
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="text-center mb-3">
+                                <i class="material-icons text-primary" style="font-size: 48px;">security</i>
+                                <h6 class="mt-2">1. Authentication</h6>
+                                <p class="small text-muted">Azure AD integration for secure access</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center mb-3">
+                                <i class="material-icons text-primary" style="font-size: 48px;">cloud</i>
+                                <h6 class="mt-2">2. Azure Services</h6>
+                                <p class="small text-muted">AI Search, OpenAI, and Storage configuration</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center mb-3">
+                                <i class="material-icons text-primary" style="font-size: 48px;">api</i>
+                                <h6 class="mt-2">3. API Backend</h6>
+                                <p class="small text-muted">Backend API services must be running</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-3">
+                        <div class="d-flex">
+                            <i class="material-icons me-2">info</i>
+                            <div>
+                                <strong>Administrator Note:</strong> This application requires proper Azure AD configuration and backend services.
+                                Please ensure all required services are configured and running before users attempt to sign in.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Configuration Instructions for Administrators -->
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">Detailed Configuration Guide</h6>
+                            <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#detailedConfig">
+                                <i class="material-icons" style="font-size: 16px;">expand_more</i>
+                                Show Details
+                            </button>
+                        </div>
+                        <div class="collapse" id="detailedConfig">
+                            @await Html.PartialAsync("_ConfigurationInstructions")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sign In Call to Action -->
+            <div class="text-center mt-4 mb-4">
+                <p class="text-muted mb-3">Ready to explore intelligent document search and AI-powered conversations?</p>
+                <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary btn-lg">
+                    <i class="material-icons me-2" style="vertical-align: middle;">login</i>
+                    Sign In Now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-header.bg-primary {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #1976d2 100%) !important;
+    }
+    
+    .material-card {
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .material-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .border-primary {
+        border-color: var(--primary-color) !important;
+        border-width: 2px !important;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle expand/collapse button text and icon
+    const detailedConfigBtn = document.querySelector('[data-bs-target="#detailedConfig"]');
+    const detailedConfigCollapse = document.getElementById('detailedConfig');
+    
+    if (detailedConfigBtn && detailedConfigCollapse) {
+        detailedConfigCollapse.addEventListener('show.bs.collapse', function() {
+            detailedConfigBtn.innerHTML = '<i class="material-icons" style="font-size: 16px;">expand_less</i> Hide Details';
+        });
+        
+        detailedConfigCollapse.addEventListener('hide.bs.collapse', function() {
+            detailedConfigBtn.innerHTML = '<i class="material-icons" style="font-size: 16px;">expand_more</i> Show Details';
+        });
+    }
+});
+</script>

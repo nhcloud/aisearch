@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Document Management";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>
+                    <i class="material-icons me-2" style="vertical-align: middle;">description</i>
+                    Document Management
+                </h2>
+                <div class="d-flex align-items-center">
+                    <span class="text-muted me-2">Welcome,</span>
+                    <strong>@ViewData["UserName"]</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the Documents Partial -->
+    @await Html.PartialAsync("_DocumentsPartial")
+</div>
+
+@section Scripts {
+    <script>
+        // Initialize documents functionality when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Documents page loaded');
+            
+            // Add any documents-specific initialization here
+            if (typeof initializeDocuments === 'function') {
+                initializeDocuments();
+            }
+            
+            // Load documents when page loads
+            if (typeof refreshDocuments === 'function') {
+                refreshDocuments();
+            }
+        });
+    </script>
+}

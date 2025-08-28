@@ -1,0 +1,130 @@
+@{
+    ViewData["Title"] = "Access Denied";
+    var returnUrl = ViewData["ReturnUrl"] as string;
+    var isAuthenticated = ViewData["IsAuthenticated"] as bool? ?? false;
+    var userName = ViewData["UserName"] as string;
+    var environment = Context.RequestServices.GetRequiredService<IWebHostEnvironment>();
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card material-card">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="material-icons" style="vertical-align: middle;">warning</i>
+                        Authentication Issue Detected
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="material-icons" style="vertical-align: middle;">info</i> Current Status:</h5>
+                        <ul class="mb-0">
+                            <li>
+                                <strong>Authenticated:</strong> @(isAuthenticated ? "Yes" : "No")
+                            </li>
+                            @if (!string.IsNullOrEmpty(userName))
+                            {
+                                <li>
+                                    <strong>User:</strong> @userName
+                                </li>
+                            }
+                            @if (!string.IsNullOrEmpty(returnUrl))
+                            {
+                                <li>
+                                    <strong>Attempted URL:</strong> @returnUrl
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    @if (Context.Request.Query.ContainsKey("error"))
+                    {
+                        <div class="alert alert-danger">
+                            <h6>Error Details:</h6>
+                            <p class="mb-0">@Context.Request.Query["error"]</p>
+                        </div>
+                    }
+
+                    <div class="text-center mt-4">
+                        <h5>What happened?</h5>
+                        <p class="text-muted">
+                            You were redirected here due to an authentication issue. This could be caused by:
+                        </p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-primary">Common Causes:</h6>
+                                <ul class="text-start text-muted small">
+                                    <li>Azure AD app registration issues</li>
+                                    <li>Missing or incorrect client secret</li>
+                                    <li>Invalid redirect URI configuration</li>
+                                    <li>User not assigned to the application</li>
+                                    <li>Consent not granted for required permissions</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-success">Troubleshooting Steps:</h6>
+                                <ol class="text-start text-muted small">
+                                    <li>Check the browser's developer console for errors</li>
+                                    <li>Verify Azure AD configuration</li>
+                                    <li>Ensure you have permission to access this app</li>
+                                    <li>Try signing out and signing in again</li>
+                                    <li>Contact your administrator if the issue persists</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary">
+                            <i class="material-icons" style="vertical-align: middle;">login</i>
+                            Try Sign In Again
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary ms-2">
+                            <i class="material-icons" style="vertical-align: middle;">home</i>
+                            Go to Home
+                        </a>
+                        <a asp-controller="Account" asp-action="AuthStatus" class="btn btn-outline-info ms-2">
+                            <i class="material-icons" style="vertical-align: middle;">info</i>
+                            Check Auth Status
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debug Information (Development Only) -->
+            @if (environment.IsDevelopment())
+            {
+                <div class="card material-card mt-3">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="material-icons" style="vertical-align: middle;">bug_report</i>
+                            Debug Information (Development Mode)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Request Information:</h6>
+                                <small class="text-muted">
+                                    <strong>URL:</strong> @Context.Request.Path @Context.Request.QueryString<br>
+                                    <strong>Method:</strong> @Context.Request.Method<br>
+                                    <strong>User Agent:</strong> @Context.Request.Headers["User-Agent"]
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Configuration Check:</h6>
+                                <small class="text-muted">
+                                    <strong>Environment:</strong> @environment.EnvironmentName<br>
+                                    <strong>Callback Path:</strong> /signin-oidc<br>
+                                    <strong>Sign Out Path:</strong> /signout-oidc
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

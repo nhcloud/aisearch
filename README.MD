@@ -21,7 +21,8 @@ AISearch/
 ## 📐 System Architecture
 
 ![Architecture Diagram](doc/img/architecture.png)
-*System architecture showing the relationship between frontend, backend, Azure services, and data flow*
+
+*System architecture showing the data flow*
 
 ### **Architecture Overview:**
 - **Frontend Layer**: .NET 9 Razor Pages with Azure AD authentication

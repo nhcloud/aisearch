@@ -20,10 +20,6 @@ AISearch/
 
 ## 📐 System Architecture
 
-![Architecture Diagram](doc/img/architecture.png)
-
-*System architecture showing the data flow*
-
 ### **Architecture Overview:**
 - **Frontend Layer**: .NET 9 Razor Pages with Azure AD authentication
 - **API Layer**: .NET 9 Web API with comprehensive REST endpoints
@@ -168,6 +164,7 @@ AISearch/
 ## 📊 Data Flow Architecture
 
 ![Data Flow Diagram](doc/img/architecture.png)
+
 *Document processing pipeline from upload to search and chat interactions*
 
 ### **Processing Pipeline:**

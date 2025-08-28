@@ -20,7 +20,7 @@ AISearch/
 
 ## 📐 System Architecture
 
-![Architecture Diagram](docs/images/architecture-diagram.png)
+![Architecture Diagram](docs/img/architecture.png)
 *System architecture showing the relationship between frontend, backend, Azure services, and data flow*
 
 ### **Architecture Overview:**

@@ -4,7 +4,7 @@ A comprehensive AI-powered search solution based on Azure AI Search multimodal c
 
 > **📝 Attribution:** This .NET implementation is inspired by and based on the [Azure AI Search Multimodal Sample](https://github.com/Azure-Samples/azure-ai-search-multimodal-sample) Python repository. We've adapted the concepts and functionality to the .NET ecosystem while adding enterprise-grade features like Azure AD authentication and a modern Razor Pages frontend.
 
-> **🤖 AI-Assisted Development:** This project was developed with significant assistance from AI tools, demonstrating effective human-AI collaboration. Primary AI partners: **Claude Sonnet 3.5** (Anthropic) for architecture and code generation, and **GPT-4** (OpenAI) for refinement and optimization. The result showcases how AI can accelerate development while maintaining high code quality and comprehensive documentation.
+> **🤖 AI-Assisted Development:** This project was developed with significant assistance from AI tools, demonstrating effective human-AI collaboration. Primary AI partners: **Claude Sonnet 4** (Anthropic) for architecture and code generation, and **GPT-5 Preview** (OpenAI) for refinement and optimization. The result showcases how AI can accelerate development while maintaining high code quality and comprehensive documentation.
 
 ## 🏗️ Project Structure
 

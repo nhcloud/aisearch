@@ -166,7 +166,7 @@ AISearch/
 
 ## 📊 Data Flow Architecture
 
-![Data Flow Diagram](docs/images/data-flow-diagram.png)
+![Data Flow Diagram](docs/img/architecture.png)
 *Document processing pipeline from upload to search and chat interactions*
 
 ### **Processing Pipeline:**

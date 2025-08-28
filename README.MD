@@ -2,6 +2,10 @@
 
 A comprehensive AI-powered search solution based on Azure AI Search multimodal capabilities, featuring a .NET 9 backend API and a .NET 9 Razor Pages frontend with Azure AD authentication.
 
+> **📝 Attribution:** This .NET implementation is inspired by and based on the [Azure AI Search Multimodal Sample](https://github.com/Azure-Samples/azure-ai-search-multimodal-sample) Python repository. We've adapted the concepts and functionality to the .NET ecosystem while adding enterprise-grade features like Azure AD authentication and a modern Razor Pages frontend.
+
+> **🤖 AI-Assisted Development:** This project was developed with significant assistance from AI tools, demonstrating effective human-AI collaboration. Primary AI partners: **Claude Sonnet 3.5** (Anthropic) for architecture and code generation, and **GPT-4** (OpenAI) for refinement and optimization. The result showcases how AI can accelerate development while maintaining high code quality and comprehensive documentation.
+
 ## 🏗️ Project Structure
 
 ```
@@ -13,6 +17,19 @@ AISearch/
 ├── docs/                          # Documentation
 └── scripts/                       # Build and deployment scripts
 ```
+
+## 📐 System Architecture
+
+![Architecture Diagram](docs/images/architecture-diagram.png)
+*System architecture showing the relationship between frontend, backend, Azure services, and data flow*
+
+### **Architecture Overview:**
+- **Frontend Layer**: .NET 9 Razor Pages with Azure AD authentication
+- **API Layer**: .NET 9 Web API with comprehensive REST endpoints
+- **Business Logic**: Clean architecture with dependency injection
+- **Azure Services**: AI Search, OpenAI, Document Intelligence, Storage
+- **Authentication**: Azure AD with token management and refresh
+- **Data Flow**: Document processing → Embedding generation → Vector search → AI chat
 
 ## ✨ Features
 
@@ -146,6 +163,19 @@ AISearch/
    ```
 
 4. **Access Swagger UI**: Open `https://localhost:7001/swagger`
+
+## 📊 Data Flow Architecture
+
+![Data Flow Diagram](docs/images/data-flow-diagram.png)
+*Document processing pipeline from upload to search and chat interactions*
+
+### **Processing Pipeline:**
+1. **Document Upload** → Azure Storage + Document Intelligence
+2. **Content Extraction** → Text, tables, images processing
+3. **Intelligent Chunking** → Optimal content segmentation
+4. **Embedding Generation** → OpenAI text-embedding-3-large
+5. **Vector Indexing** → Azure AI Search with hybrid capabilities
+6. **Search & Chat** → Semantic search + GPT-4 chat completions
 
 ## 📚 API Endpoints
 
@@ -344,6 +374,33 @@ curl -X POST "https://localhost:7001/api/chat" \
 - ✅ Core Library (.NET 9) - **Build Successful**
 - ⚠️ Configuration Required - Azure service credentials needed
 
+## 🔗 Related Projects
+
+### Original Python Implementation
+This .NET implementation is based on the excellent work from the Azure Samples team:
+
+**[Azure AI Search Multimodal Sample](https://github.com/Azure-Samples/azure-ai-search-multimodal-sample)**
+- Original Python/FastAPI implementation
+- Comprehensive multimodal search capabilities
+- Streamlit frontend for quick prototyping
+- Excellent documentation and examples
+
+### Key Differences in .NET Version
+- **Enterprise Authentication**: Full Azure AD integration with token management
+- **Razor Pages Frontend**: Server-side rendered UI with modern responsive design
+- **Type Safety**: Strong typing with C# throughout the application
+- **Performance**: Optimized for .NET runtime performance characteristics
+- **Security**: Enhanced security features built into ASP.NET Core
+- **Deployment**: Ready for enterprise deployment scenarios
+- **AI-Assisted Development**: Built using modern AI development tools and practices
+
+### Development Methodology
+This project demonstrates **AI-Assisted Development** best practices:
+- **Human Vision + AI Implementation**: Strategic decisions by humans, rapid implementation with AI
+- **Iterative Refinement**: Continuous improvement through human-AI collaboration
+- **Quality Assurance**: Human oversight ensuring production-ready code
+- **Documentation**: Comprehensive documentation generated with AI assistance
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -402,3 +459,5 @@ For issues and questions:
 ---
 
 **Note**: Make sure to configure your Azure services and update both `appsettings.json` files (Web and API projects) before running the application. The frontend requires the backend API to be running for full functionality.
+
+**AI Development Note**: This project showcases the potential of AI-assisted development, combining human expertise with AI capabilities to create production-ready software efficiently and effectively.

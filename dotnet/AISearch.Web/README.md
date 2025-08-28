@@ -2,6 +2,21 @@
 
 This is the ASP.NET Core 9 Razor Pages frontend application for the AI Search Multimodal Solution, converted from the original React/TypeScript frontend while maintaining UI consistency.
 
+> **📝 Attribution:** This .NET implementation is inspired by and based on the [Azure AI Search Multimodal Sample](https://github.com/Azure-Samples/azure-ai-search-multimodal-sample) Python repository. The original sample demonstrates multimodal search capabilities with Python/FastAPI and Streamlit. This .NET version adapts those concepts to provide an enterprise-ready Razor Pages frontend with Azure AD authentication.
+
+## Architecture Overview
+
+<!-- TODO: Add Frontend Architecture Diagram Here -->
+![Frontend Architecture](../docs/images/frontend-architecture-diagram.png)
+*Razor Pages frontend architecture showing authentication flow, API integration, and user interface components*
+
+### **Frontend Components:**
+- **Authentication Layer**: Azure AD integration with token management
+- **UI Layer**: Bootstrap 5 + Material Design components
+- **API Integration**: HttpClient with authentication headers
+- **Client-Side Logic**: jQuery for dynamic interactions
+- **Security**: CSRF protection, XSS prevention, input validation
+
 ## Features
 
 - **Search Interface**: Semantic search with configurable parameters
@@ -90,12 +105,26 @@ AISearch.Web/
 └── appsettings.json      # Configuration
 ```
 
-## Features Comparison with React Frontend
+## User Interface Architecture
+
+<!-- TODO: Add UI Component Architecture Diagram Here -->
+![UI Components Diagram](../docs/images/ui-components-diagram.png)
+*User interface component hierarchy and interaction patterns*
+
+### **UI Component Structure:**
+- **Layout System**: Bootstrap grid with responsive breakpoints
+- **Navigation**: Material Design navigation with authentication state
+- **Search Components**: Advanced search forms with real-time feedback
+- **Chat Interface**: Message bubbles with document citations
+- **Document Cards**: Material Design cards for document display
+- **Loading States**: Spinners and progress indicators
+
+## Features Comparison with Original Python Sample
 
 ### ✅ Implemented Features
 
-| Feature | React Frontend | Razor Pages Frontend | Status |
-|---------|----------------|---------------------|---------|
+| Feature | Python/Streamlit | Razor Pages Frontend | Status |
+|---------|-------------------|---------------------|---------|
 | Search Interface | ✅ | ✅ | Complete |
 | Chat Interface | ✅ | ✅ | Complete |
 | Document Management | ✅ | ✅ | Complete |
@@ -107,21 +136,36 @@ AISearch.Web/
 | Error Handling | ✅ | ✅ | Complete |
 | Loading States | ✅ | ✅ | Complete |
 
-### 🔄 Enhanced Features
+### 🔄 Enhanced Features (.NET Version)
 
-- **Authentication**: Built-in Azure AD integration
+- **Authentication**: Built-in Azure AD integration (vs. no auth in original)
 - **Server-side rendering**: Better SEO and initial load performance
 - **Type safety**: Strong typing with C# models
 - **CSRF protection**: Built-in security features
+- **Enterprise readiness**: Production-ready authentication and security
 
 ## API Integration
 
-The Razor Pages frontend communicates with the same backend API as the React version:
+The Razor Pages frontend communicates with the same backend API patterns as the original Python sample:
 
 - **Search**: `POST /api/search`
 - **Chat**: `POST /api/chat`
 - **Documents**: `GET/POST/DELETE /api/documents`
 - **Indexes**: `GET/POST/DELETE /api/indexes`
+
+## Authentication Flow
+
+<!-- TODO: Add Authentication Flow Diagram Here -->
+![Authentication Flow](../docs/images/auth-flow-diagram.png)
+*Azure AD authentication flow with token management and API integration*
+
+### **Authentication Process:**
+1. **User Access** → Redirect to Azure AD login
+2. **Azure AD Authentication** → Token acquisition
+3. **Token Storage** → Secure token caching
+4. **API Calls** → Authenticated requests with bearer tokens
+5. **Token Refresh** → Automatic token renewal
+6. **Logout** → Secure token cleanup
 
 ## Configuration
 
@@ -197,18 +241,18 @@ ENTRYPOINT ["dotnet", "AISearch.Web.dll"]
 ## Contributing
 
 1. Follow the existing code style and patterns
-2. Ensure all features maintain UI consistency with the original React frontend
+2. Ensure all features maintain UI consistency with the original Python sample
 3. Add appropriate error handling and loading states
 4. Test across different browsers and device sizes
 5. Update this README if you add new features
 
 ## UI Components
 
-The Razor Pages frontend uses the same design principles as the React version:
+The Razor Pages frontend uses the same design principles as the original Python sample:
 
 - **Material Design**: Consistent color scheme and components
 - **Bootstrap Grid**: Responsive layout system
-- **Material Icons**: Same icon set as React version
+- **Material Icons**: Same icon set as original sample
 - **Card-based Layout**: Material Design cards for content organization
 - **Color Scheme**: 
   - Primary: #2196f3 (Blue)
@@ -274,3 +318,15 @@ This application takes advantage of .NET 9 features including:
 - **ASP.NET Core 9**: Enhanced web framework capabilities
 - **Modern Security**: Latest security features and vulnerability mitigations
 - **Improved Tooling**: Better development experience with enhanced debugging and diagnostics
+
+## Related Resources
+
+### Original Azure Sample
+- **[Azure AI Search Multimodal Sample](https://github.com/Azure-Samples/azure-ai-search-multimodal-sample)**: The original Python implementation that inspired this .NET version
+- **Microsoft Learn**: [Build a multimodal search solution](https://docs.microsoft.com/en-us/azure/search/tutorial-multiple-data-sources)
+- **Azure AI Search**: [Official documentation](https://docs.microsoft.com/en-us/azure/search/)
+
+### .NET Resources
+- **ASP.NET Core**: [Official documentation](https://docs.microsoft.com/en-us/aspnet/core/)
+- **Azure SDK for .NET**: [Documentation and samples](https://docs.microsoft.com/en-us/dotnet/azure/)
+- **.NET 9**: [What's new documentation](https://docs.microsoft.com/en-us/dotnet/core/whats-new/dotnet-9)

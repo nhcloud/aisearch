@@ -481,5 +481,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/dotnet/AISearch.Api/appsettings.json
-/dotnet/AISearch.Web/appsettings.json
+

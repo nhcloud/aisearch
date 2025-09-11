@@ -1,10 +1,34 @@
 @echo off
-echo Starting AI Search MVC Frontend...
+echo Starting AISearch.Web (.NET 9 Razor Pages Frontend)...
 
 echo.
-echo Checking if backend API is running...
-powershell -Command "try { Invoke-WebRequest -Uri 'http://localhost:5000/api' -Method GET -TimeoutSec 5 | Out-Null; Write-Host 'Backend API is accessible' -ForegroundColor Green } catch { Write-Host 'Warning: Backend API is not accessible at http://localhost:5000' -ForegroundColor Yellow }"
+echo Checking for required configuration...
+if not exist "appsettings.json" (
+    echo WARNING: appsettings.json not found!
+    echo Please configure Azure AD and API settings before running.
+    echo See the main README.MD and SETUP.md for configuration instructions.
+    pause
+    exit /b 1
+)
 
 echo.
-echo Starting MVC application...
-dotnet run --urls "https://localhost:7001;http://localhost:5001"
+echo Starting Razor Pages frontend...
+echo This will run on:
+echo   - HTTPS: https://localhost:7002
+echo   - HTTP:  http://localhost:5002
+echo.
+echo IMPORTANT: Make sure the API backend is running at https://localhost:7001
+echo           Use the main start.bat script to start both services automatically.
+
+dotnet run
+
+if %ERRORLEVEL% EQU 0 (
+    echo.
+    echo ? AISearch.Web started successfully!
+) else (
+    echo.
+    echo ? AISearch.Web failed to start.
+    echo Check the error messages above for details.
+    pause
+    exit /b %ERRORLEVEL%
+)

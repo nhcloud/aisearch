@@ -1,5 +1,5 @@
 @echo off
-echo Building AI Search MVC Frontend...
+echo Building AISearch.Web (.NET 9 Razor Pages Frontend)...
 
 echo.
 echo Restoring NuGet packages...
@@ -11,15 +11,20 @@ dotnet build --configuration Release
 
 if %ERRORLEVEL% EQU 0 (
     echo.
-    echo Build completed successfully!
+    echo ? Build completed successfully!
     echo.
-    echo To run the application:
+    echo To run the Razor Pages application:
     echo   dotnet run
     echo.
-    echo To publish for deployment:
+    echo Web app will be available at:
+    echo   https://localhost:7002
+    echo.
+    echo For production deployment:
     echo   dotnet publish -c Release -o ./publish
+    echo.
+    echo Note: Make sure AISearch.Api is running for full functionality
 ) else (
     echo.
-    echo Build failed with errors.
+    echo ? Build failed with errors.
     exit /b %ERRORLEVEL%
 )
